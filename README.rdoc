@@ -6,7 +6,7 @@
 
 Install, configure, and manage Microsoft Windows services from Ruby. Using Microsoft's SRVany.exe from the MS Resource Toolkit, run a Ruby script as a Windows service.
 
-== Features/Probiles:
+== Features/Problems:
 
 * Turn any application into a Windows service using srvany.exe. Manage existing services.
 * Depending on how your Ruby process launches (Like rails, which uses a batch file), stopping the service may stop SRVany.exe, but leave the child batch running.
