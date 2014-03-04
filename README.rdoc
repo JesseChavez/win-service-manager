@@ -1,7 +1,6 @@
 = srvany_manager
-    by James Tucker
-    http://ra66i.org
-    http://github.com/raggi/srvany_manager
+    by Ryan Castro (Originally by James Tucker)
+    http://github.com/ryancastro/srvany_manager/
 
 == DESCRIPTION:
 
@@ -14,11 +13,13 @@ use of / requires the SRVANY.exe from the Windows Resource Kit.
 
 == SYNOPSIS:
 
-  sm = SrvanyManager.new('rbsvc-', File.expand_path("srvany.exe"))
-  sm.create('foo', "c:\ruby18\bin\rubyw c:\daemon\my_awesome_daemon.rb")
-  sm.start('foo')
-  sm.stop('foo')
-  sm.delete('foo')
+  #Create a new manager
+  sm = SrvanyManager.new(File.expand_path("srvany.exe"))
+  #Creat a new service.  Name, exe, arguments, directory to run from, Service description
+  sm.create('foo service', 'c:\ruby18\bin\rubyw', 'my_awesome_daemon.rb', 'c:\daemon', "This is my Daemon Service" )
+  sm.start('foo service')
+  sm.stop('foo service')
+  sm.delete('foo service')
   sm.list
 
 == REQUIREMENTS:
