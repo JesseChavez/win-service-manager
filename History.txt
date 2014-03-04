@@ -1,3 +1,5 @@
+== 1.0.0 / 2014-03-04
+* Trimmed down, Path parameter added
 == 0.1.0 / 2008-12-20
 
 * 1 major enhancement

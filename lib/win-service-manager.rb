@@ -1,15 +1,15 @@
 require 'win32/service'
 require 'win32/registry'
 
-class SrvanyManager
+class WinServiceManager
   #Name your service, provice a path to SRVANY.exe - found in the MS Windows Resource Kit
-  def initialize(name_key, srv_any_path = "#{ENV['ProgramFiles']}\\Windows Resource Kits\\Tools\\srvany.exe")
-    @name_key = name_key
+  def initialize(srv_any_path = "#{ENV['ProgramFiles']}\\Windows Resource Kits\\Tools\\srvany.exe")
+    @name_key = ''
     @srv_any_path = srv_any_path
   end
 
   # Create a new service. The service name will be appended to the name_key
-  # and inserted into the registry using Win32::Service. The arguments are 
+  # and inserted into the registry using Win32::Service. The arguments are
   # then adjusted with win32-registry.
   # One recommended pattern is to store persisence details about the service
   # as yaml in the optional description field.
@@ -32,7 +32,7 @@ class SrvanyManager
           params.write_i("Start", 3)
           params.write_s("Application", command)
           params.write_s("AppParameters", args)
-          params.write_s("AppDirectory", app_directory)          
+          params.write_s("AppDirectory", app_directory)
         end
       end
     end
@@ -65,7 +65,7 @@ class SrvanyManager
     private
     def registry(name, &block)
       Win32::Registry::HKEY_LOCAL_MACHINE.open(
-      "SYSTEM\\CurrentControlSet\\Services", 
+      "SYSTEM\\CurrentControlSet\\Services",
       Win32::Registry::KEY_WRITE | Win32::Registry::KEY_READ
       ).open(name, &block)
     end

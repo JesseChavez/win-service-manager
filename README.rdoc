@@ -1,26 +1,32 @@
-= srvany_manager
+= win-service-manager
     by Ryan Castro (Originally by James Tucker)
-    http://github.com/ryancastro/srvany_manager/
+    http://github.com/ryancastro/win-service-manager/
 
 == DESCRIPTION:
 
-A quick and simple manager for running programs as services on win32. Makes 
-use of / requires the SRVANY.exe from the Windows Resource Kit.
+Install, configure, and manage Microsoft Windows services from Ruby. Using Microsoft's SRVany.exe from the MS Resource Toolkit, run a Ruby script as a Windows service.
 
 == FEATURES/PROBLEMS:
 
-* It's simple.
+* Turn any application into a Windows service using Srvany.exe. Manage existing services.
+* Depending on how your Ruby process launches (Like rails, which uses a batch file), stopping the service may stop SRVany.exe, but leave the child batch running.
 
 == SYNOPSIS:
 
   #Create a new manager
-  sm = SrvanyManager.new(File.expand_path("srvany.exe"))
+  sm = WinServiceManager.new(File.expand_path("srvany.exe"))
   #Creat a new service.  Name, exe, arguments, directory to run from, Service description
   sm.create('foo service', 'c:\ruby18\bin\rubyw', 'my_awesome_daemon.rb', 'c:\daemon', "This is my Daemon Service" )
   sm.start('foo service')
   sm.stop('foo service')
   sm.delete('foo service')
-  sm.list
+  puts sm.list
+
+== TURNING RAILS 4 INTO A WINDOWS SERVICE:
+  require 'win-service-manager'
+  service = WinServiceManager.new('c:\mc_ruby\srvany.exe')
+  service.create('Awesome Rails 4 service', 'c:\ruby200\bin\ruby', 'c:\ruby200\bin\rails server -e production', 'c:\projects\awesomerails', 'Rails 4 Service Description')
+
 
 == REQUIREMENTS:
 
@@ -32,7 +38,8 @@ away with installing them using a specific --platform argument to rubygems.
 
 == INSTALL:
 
-* gem inst srvany_manager
+* gem inst win-service-manager
+* To create services, download srvany.exe from Microsoft Resource Kit Tools and provide it's path to WinServiceManager
 
 == LICENSE:
 
