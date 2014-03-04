@@ -1,26 +1,9 @@
+require 'win32/service'
+require 'win32/registry'
+
 class SrvanyManager
-
-  Version = VERSION = '0.2.1'
-  def self.version
-    Version
-  end
-
-  def self.load_dependencies
-    once = false
-    require 'win32/service'
-    require 'win32/registry'
-  rescue LoadError => e
-    raise e if once
-    require 'rubygems'
-    once = true
-    retry
-  end
-
-  # Construct a new service manager, just sets up a name_key, which is used
-  # as a leading string to the name of all services managed by the instance.
-  # srv_any_path must be a full path to srvany.exe.
-  def initialize(name_key = 'SRVANY_', srv_any_path = "#{ENV['ProgramFiles']}\\Windows Resource Kits\\Tools\\srvany.exe")
-    self.class.load_dependencies
+  #Name your service, provice a path to SRVANY.exe - found in the MS Windows Resource Kit
+  def initialize(name_key, srv_any_path = "#{ENV['ProgramFiles']}\\Windows Resource Kits\\Tools\\srvany.exe")
     @name_key = name_key
     @srv_any_path = srv_any_path
   end
@@ -30,7 +13,7 @@ class SrvanyManager
   # then adjusted with win32-registry.
   # One recommended pattern is to store persisence details about the service
   # as yaml in the optional description field.
-  def create(name, command, args = '', description = nil, options = {})
+  def create(name, command, args = '', app_directory = '', description = nil, options = {})
     defaults = {
       :service_type       => Win32::Service::WIN32_OWN_PROCESS,
       :start_type         => Win32::Service::DEMAND_START,
@@ -44,12 +27,12 @@ class SrvanyManager
       :binary_path_name   => @srv_any_path
       )
       Win32::Service.create(options)
-      # `#{@ins_srv_path} #{name} "#{@srv_any_path}"`
       registry(name) do |reg|
         reg.create('Parameters') do |params|
           params.write_i("Start", 3)
           params.write_s("Application", command)
           params.write_s("AppParameters", args)
+          params.write_s("AppDirectory", app_directory)          
         end
       end
     end
