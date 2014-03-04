@@ -29,7 +29,7 @@ Install, configure, and manage Microsoft Windows services from Ruby. Using Micro
 
 
 == Requirements:
-* To create services, download srvany.exe from Microsoft Resource Kit Tools and provide it's path to WinServiceManager. Last time I checked, it was here: https://www.microsoft.com/en-us/download/details.aspx?id=17657
+* To create services, download srvany.exe from Microsoft Resource Kit Tools and provide its path to WinServiceManager. Last time I checked, it was here: https://www.microsoft.com/en-us/download/details.aspx?id=17657
 
 == INSTALL:
 
