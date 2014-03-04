@@ -2,16 +2,16 @@
     by Ryan Castro (Originally by James Tucker)
     http://github.com/ryancastro/win-service-manager/
 
-== DESCRIPTION:
+== Description:
 
 Install, configure, and manage Microsoft Windows services from Ruby. Using Microsoft's SRVany.exe from the MS Resource Toolkit, run a Ruby script as a Windows service.
 
-== FEATURES/PROBLEMS:
+== Features/Probiles:
 
-* Turn any application into a Windows service using Srvany.exe. Manage existing services.
+* Turn any application into a Windows service using srvany.exe. Manage existing services.
 * Depending on how your Ruby process launches (Like rails, which uses a batch file), stopping the service may stop SRVany.exe, but leave the child batch running.
 
-== SYNOPSIS:
+== Synopsis:
 
   #Create a new manager
   sm = WinServiceManager.new(File.expand_path("srvany.exe"))
@@ -22,24 +22,19 @@ Install, configure, and manage Microsoft Windows services from Ruby. Using Micro
   sm.delete('foo service')
   puts sm.list
 
-== TURNING RAILS 4 INTO A WINDOWS SERVICE:
+== Turning a Rails 4 app into a service:
   require 'win-service-manager'
   service = WinServiceManager.new('c:\mc_ruby\srvany.exe')
   service.create('Awesome Rails 4 service', 'c:\ruby200\bin\ruby', 'c:\ruby200\bin\rails server -e production', 'c:\projects\awesomerails', 'Rails 4 Service Description')
 
 
-== REQUIREMENTS:
-
-At the time of writing, some of the dependencies are only available as gems to
-the 'x86-mswin32-60' platform. If you are installing on mingw, you can get
-away with installing them using a specific --platform argument to rubygems.
-
-* gem inst win32-service win32-registry
+== Requirements:
+* To create services, download srvany.exe from Microsoft Resource Kit Tools and provide it's path to WinServiceManager. Last time I checked, it was here: https://www.microsoft.com/en-us/download/details.aspx?id=17657
 
 == INSTALL:
 
-* gem inst win-service-manager
-* To create services, download srvany.exe from Microsoft Resource Kit Tools and provide it's path to WinServiceManager
+* gem install win-service-manager
+
 
 == LICENSE:
 
