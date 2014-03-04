@@ -1,5 +1,5 @@
 = win-service-manager
-    by Ryan Castro (Originally by James Tucker)
+    by Ryan Castro (Forked from https://github.com/raggi/srvany_manager)
     http://github.com/ryancastro/win-service-manager/
 
 == Description:
@@ -16,7 +16,7 @@ Install, configure, and manage Microsoft Windows services from Ruby. Using Micro
   #Create a new manager
   sm = WinServiceManager.new(File.expand_path("srvany.exe"))
   #Creat a new service.  Name, exe, arguments, directory to run from, Service description
-  sm.create('foo service', 'c:\ruby18\bin\rubyw', 'my_awesome_daemon.rb', 'c:\daemon', "This is my Daemon Service" )
+  sm.create('foo service', 'c:\ruby200\bin\rubyw', 'my_awesome_daemon.rb', 'c:\daemon', "This is my Daemon Service" )
   sm.start('foo service')
   sm.stop('foo service')
   sm.delete('foo service')
